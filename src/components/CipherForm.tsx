@@ -1,15 +1,28 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
-export default function CipherForm({ onEncrypt, onDecrypt }) {
-  const [message, setMessage] = useState('');
-  const [shift, setShift] = useState(3);
+interface CipherFormProps {
+  onEncrypt: (message: string, shift: number) => void;
+  onDecrypt: (message: string, shift: number) => void;
+}
 
-  const handleEncrypt = () => {
+export default function CipherForm({ onEncrypt, onDecrypt }: CipherFormProps) {
+  const [message, setMessage] = useState<string>('');
+  const [shift, setShift] = useState<number>(3);
+
+  const handleEncrypt = (): void => {
     onEncrypt(message, shift);
   };
 
-  const handleDecrypt = () => {
+  const handleDecrypt = (): void => {
     onDecrypt(message, shift);
+  };
+
+  const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+    setMessage(e.target.value);
+  };
+
+  const handleShiftChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setShift(parseInt(e.target.value));
   };
 
   return (
@@ -21,9 +34,9 @@ export default function CipherForm({ onEncrypt, onDecrypt }) {
         <textarea
           id="message"
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          rows="4"
+          rows={4}
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={handleMessageChange}
           placeholder="Digite sua mensagem aqui..."
         />
       </div>
@@ -37,9 +50,9 @@ export default function CipherForm({ onEncrypt, onDecrypt }) {
           type="number"
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={shift}
-          onChange={(e) => setShift(e.target.value)}
-          min="1"
-          max="25"
+          onChange={handleShiftChange}
+          min={1}
+          max={25}
         />
       </div>
       

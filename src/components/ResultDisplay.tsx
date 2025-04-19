@@ -1,16 +1,20 @@
-// components/ResultDisplay.jsx
 import { useRef } from 'react';
 
-export default function ResultDisplay({ result, isEncrypted }) {
-  const resultRef = useRef(null);
+interface ResultDisplayProps {
+  result: string;
+  isEncrypted: boolean;
+}
 
-  const handleCopy = () => {
+export default function ResultDisplay({ result, isEncrypted }: ResultDisplayProps) {
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const handleCopy = (): void => {
     if (resultRef.current) {
       navigator.clipboard.writeText(result)
         .then(() => {
           alert('Texto copiado para a área de transferência!');
         })
-        .catch(err => {
+        .catch((err: Error) => {
           console.error('Erro ao copiar texto: ', err);
         });
     }
