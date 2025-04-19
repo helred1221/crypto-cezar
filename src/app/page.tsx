@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Aplicativo de criptografia usando Cifra de César" />
       </Head>
 
-      <main className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+      <main className="max-w-md mx-auto bg-black p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center mb-6 text-blue-600">Cifra de César</h1>
         
         <CipherForm 
